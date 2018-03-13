@@ -181,21 +181,16 @@ $(document).ready(function () {
 
             for (var i=0; i<4; i++) {
                 var headline = result3[i].title
-                console.log(headline);
                 var articleURL = result3[i].url;
-                console.log(articleURL);
                 var snippet = result3[i].description;
-                console.log(snippet);
                 var source = result3[i].source.name;
-                console.log(source);
                 var articleDate = result3[i].publishedAt;
-                console.log(articleDate);
                 var updatedDate = articleDate.substr(0,10);
 
                 var articleDiv = $("<div>");
                 var a = $("<a>");
                 var h2 = $("<h2>");
-                var h3 = $("<h3>");
+                var h4 = $("<h4>");
                 var articleP = $("<p>");
                 
                 articleDiv.addClass("article");
@@ -203,8 +198,8 @@ $(document).ready(function () {
                 h2.text(headline);
                 a.append(h2);
                 articleDiv.append(a);
-                h3.text(snippet);
-                articleDiv.append(h3);
+                h4.text(snippet);
+                articleDiv.append(h4);
                 articleP.text(updatedDate + " " + source);
                 articleDiv.append(articleP);
                 $("#teamNews").append(articleDiv);
@@ -255,9 +250,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-
-
-
-// if a user enters a term into the search bar then add that term in to the array and create a button for it that runs the same way as the buttons described above

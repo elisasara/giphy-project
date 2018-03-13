@@ -1,0 +1,63 @@
+body {
+    font-family: "Georgia", "Times New Roman", "Serif";
+    font-size: 16px;
+    background-color: black;
+}
+
+.row {
+    background-color: white;
+}
+
+h3 {
+    font-family: 'Special Elite', cursive;
+}
+
+#buttons {
+    padding-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: dashed;
+    border-color: green;
+    border-width: 4px;
+}
+
+#form {
+    border: dashed;
+    border-color: green;
+    border-width: 4px;
+    padding: 7px;
+    margin-bottom: 10px;
+}
+
+.division {
+    height: 150px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#teamBadge {
+    max-height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#teamInfo {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#gifs {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.gif {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#teamNews {
+    margin-top: 50px;
+}

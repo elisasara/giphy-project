@@ -1,5 +1,5 @@
 
-var gifArray = ["Philadelphia Eagles", "New York Giants", "New England Patriots"]
+var gifArray = ["Philadelphia Eagles", "New England Patriots", "Pittsburgh Steelers", "Tennessee Titans", "Oakland Raiders", "Green Bay Packers", "Atlanta Falcons", "Seattle Seahawks"];
 
 $(document).ready(function () {
 
@@ -35,40 +35,41 @@ $(document).ready(function () {
             attrForSort = buttonAttr.toLowerCase();
             newButton.html(gifArray[i]);
 
-            if (attrForSort === "new england patriots" || attrForSort === "buffalo bills" || gifArray[i] == "Miami Dolphins" || gifArray[i] == "New York Jets") {
+            if (attrForSort === "new england patriots" || attrForSort === "buffalo bills" || attrForSort === "miami dolphins" || attrForSort === "new york jets") {
                 $("#afcEast").append(newButton);
             }
             
-            else if(gifArray[i] == "Pittsburgh Steelers" || gifArray[i] == "Baltimore Ravens" || gifArray[i] == "Cincinnati Bengals" || gifArray[i] == "Cleveland Browns") {
+            else if(attrForSort === "pittsburgh steelers" || attrForSort === "baltimore ravens" || attrForSort === "cincinnati bengals" || attrForSort === "cleveland browns") {
                 $("#afcNorth").append(newButton);
             }
 
-            else if (gifArray[i] == "Jacksonville Jaguars" || gifArray[i] == "Tennessee Titans" || gifArray[i] == "Indianapolis Colts" || gifArray[i] == "Houston Texans") {
+            else if (attrForSort === "jacksonville jaguars" || attrForSort ==="tennessee titans" || attrForSort === "indianapolis colts" || attrForSort === "houston texans") {
                 $("#afcSouth").append(newButton);
             }
 
-            else if (gifArray[i] == "Kansas City Chiefs" || gifArray[i] == "Los Angeles Chargers" || gifArray[i] == "Oakland Raiders" || gifArray[i] == "Denver Broncos") {
+            else if (attrForSort === "kansas city chiefs" ||attrForSort === "los angeles chargers" || attrForSort === "oakland raiders" || attrForSort === "denver broncos") {
                 $("#afcWest").append(newButton);
             }
             
-            else if (gifArray[i] == "Philadelphia Eagles" || gifArray[i] == "Dallas Cowboys" || gifArray[i] == "Washington Redskins" || gifArray[i] == "New York Giants") {
+            else if (attrForSort === "philadelphia eagles" || attrForSort === "dallas cowboys" || attrForSort === "washington redskins" || attrForSort === "new york giants") {
                 $("#nfcEast").append(newButton);
             }
 
-            else if (gifArray[i] == "Minnesota Vikings" || gifArray[i] == "Detroit Lions" || gifArray[i] == "Green Bay Packers" || gifArray[i] == "Chicago Bears") {
+            else if (attrForSort === "minnesota vikings" || attrForSort === "detroit lions" || attrForSort === "green bay packers" || attrForSort === "chicago bears") {
                 $("#nfcNorth").append(newButton);
             }
 
-            else if (gifArray[i] == "New Orleans Saints" || gifArray[i] == "Carolina Panthers" || gifArray[i] == "Atlanta Falcons" || gifArray[i] == "Tampa Bay Buccaneers") {
+            else if (attrForSort === "new orleans saints" || attrForSort === "carolina panthers" || attrForSort === "atlanta falcons" || attrForSort === "tampa bay buccaneers") {
                 $("#nfcSouth").append(newButton);
             }
 
-            else if (gifArray[i] == "Los Angeles Rams" || gifArray[i] == "Seattle Seahawks" || gifArray[i] == "Arizona Cardinals" || gifArray[i] == "San Francisco 49ers") {
+            else if (attrForSort === "los angeles rams" || attrForSort === "seattle seahawks" || attrForSort === "arizona cardinals" || attrForSort === "san francisco 49ers") {
                 $("#nfcWest").append(newButton);
             }
 
             else {
                 alert("That is not a valid team. Please be sure to include the city and full team name!");
+                gifArray.pop();
             }
         }
     };
@@ -142,7 +143,8 @@ $(document).ready(function () {
         var value = searchTeam.split(" ");
         var forURL = value.join("+");
         var teamURL = "https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=" + searchTeam;
-        var nytURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTeam + "&?begin_date=20180101&?sort=newest&?page=0&api-key=e12fa294cce8469783662298ec2579fd";
+        var newsURL = "https://newsapi.org/v2/everything?q=" + searchTeam + "&domains=espn.com&language=en&apiKey=2b8a4dbbe3044a0e9bcf5d669b9325a3"
+        // var nytURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTeam + "&?begin_date=20180101&?sort=newest&?page=0&api-key=e12fa294cce8469783662298ec2579fd";
 
         $.ajax({
             url: teamURL,
@@ -171,24 +173,24 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: nytURL,
+            url: newsURL,
             type: "GET",
         }).then(function (response){
-
-            var result3 = response.response.docs;
+            var result3 = response.articles;
             console.log(result3);
 
             for (var i=0; i<4; i++) {
-
-
-            var headline = result3[i].headline.main;
-            console.log(headline);
-            var articleURL = result3[i].web_url;
-            console.log(articleURL);
-            var snippet = result3[i].snippet;
-            console.log(snippet);
-            var articleDate = result3[i].pub_date;
-            var updatedDate = articleDate.substr(0,10);
+                var headline = result3[i].title
+                console.log(headline);
+                var articleURL = result3[i].url;
+                console.log(articleURL);
+                var snippet = result3[i].description;
+                console.log(snippet);
+                var source = result3[i].source.name;
+                console.log(source);
+                var articleDate = result3[i].publishedAt;
+                console.log(articleDate);
+                var updatedDate = articleDate.substr(0,10);
 
                 var articleDiv = $("<div>");
                 var a = $("<a>");
@@ -203,10 +205,10 @@ $(document).ready(function () {
                 articleDiv.append(a);
                 h3.text(snippet);
                 articleDiv.append(h3);
-                articleP.text(updatedDate);
+                articleP.text(updatedDate + " " + source);
                 articleDiv.append(articleP);
                 $("#teamNews").append(articleDiv);
-            };
+            }
         })
     };
 

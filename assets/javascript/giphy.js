@@ -5,17 +5,10 @@ $(document).ready(function () {
 
     // using a foor loop, create a button for each item in the array
     function buttons() {
-        // empty the div of any existing buttons
-        // $("#buttons").empty();
-        $("#afcEast").empty();
-        $("#afcNorth").empty();
-        $("#afcSouth").empty();
-        $("#afcWest").empty();
-        $("#nfcEast").empty();
-        $("#nfcNorth").empty();
-        $("#nfcSouth").empty();
-        $("#nfcWest").empty();
+        // empty the divs of any existing buttons
+        $(".divison").empty();
 
+        // add headers where needed
         $("#afcEast").html("<h3>AFC East</h3>");
         $("#afcNorth").html("<h3>AFC North</h3>");
         $("#afcSouth").html("<h3>AFC South</h3>");
@@ -35,6 +28,8 @@ $(document).ready(function () {
             attrForSort = buttonAttr.toLowerCase();
             newButton.html(gifArray[i]);
 
+
+            // sort the teams into their correct divisions
             if (attrForSort === "new england patriots" || attrForSort === "buffalo bills" || attrForSort === "miami dolphins" || attrForSort === "new york jets") {
                 $("#afcEast").append(newButton);
             }
@@ -67,6 +62,7 @@ $(document).ready(function () {
                 $("#nfcWest").append(newButton);
             }
 
+            // if a team does not fit into any of the conferences show the alert below and remove it from the array
             else {
                 alert("That is not a valid team. Please be sure to include the city and full team name!");
                 gifArray.pop();
@@ -77,6 +73,14 @@ $(document).ready(function () {
     function produceGifs() {
         // empty the div of any content already there
         $("#gifs").empty();
+
+        // change the background of results div to white
+        $("#result").css(
+            {"background-color" : "white",
+            "border-style" : "dashed",
+            "border-color" : "green",
+            "border-width" : "4px"
+            });
 
         // store the value of the attribute "SearchTerm" of the button that was clicked
         var searchGif = $(this).attr("searchTerm");
@@ -134,7 +138,7 @@ $(document).ready(function () {
     };
 
     function teamInfo () {
-
+        // empty the necessary divs
         $("#teamInfo").empty();
         $("#teamNews").empty();
 
@@ -144,8 +148,8 @@ $(document).ready(function () {
         var forURL = value.join("+");
         var teamURL = "https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=" + searchTeam;
         var newsURL = "https://newsapi.org/v2/everything?q=" + searchTeam + "&domains=espn.com&language=en&apiKey=2b8a4dbbe3044a0e9bcf5d669b9325a3"
-        // var nytURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTeam + "&?begin_date=20180101&?sort=newest&?page=0&api-key=e12fa294cce8469783662298ec2579fd";
 
+        // make the ajax call for the teamURL
         $.ajax({
             url: teamURL,
             type: "GET",
@@ -154,11 +158,12 @@ $(document).ready(function () {
 
             var teamLogo = result2.strTeamBadge;
             var teamName = result2.strTeam;
-            var coach = result2.strManager;
             var location = result2.strStadiumLocation;
             var stadium = result2.strStadium;
 
             var teamImage = $("<img>");
+
+            // create all the necessary elements and display it onto the page
             teamImage.attr("src", teamLogo);
             teamImage.attr("id", "teamBadge");
             $("#teamInfo").append(teamImage);
@@ -166,12 +171,12 @@ $(document).ready(function () {
             var teamP = $("<p>");
             teamP.addClass("info");
             teamP.html("<h2>" + teamName + "</h2>");
-            teamP.append("<p>Coach: " + coach + "</p>");
             teamP.append("<p>Location: " + location + "</p>");
             teamP.append("<p>Stadium: " + stadium + "</p>");
             $("#teamInfo").append(teamP);
         });
 
+        // make the ajax call for the newsURL
         $.ajax({
             url: newsURL,
             type: "GET",
@@ -179,6 +184,7 @@ $(document).ready(function () {
             var result3 = response.articles;
             console.log(result3);
 
+            // display the first four articles only
             for (var i=0; i<4; i++) {
                 var headline = result3[i].title
                 var articleURL = result3[i].url;

@@ -1,7 +1,7 @@
 body {
     font-family: "Georgia", "Times New Roman", "Serif";
     font-size: 16px;
-    background-color: black;
+    background-color: #634747;
 }
 
 .row {
@@ -22,14 +22,24 @@ h3 {
 }
 
 #form {
-    border: dashed;
-    border-color: green;
+    text-align: center;
+    border: solid;
+    border-color: black;
     border-width: 4px;
+    border-radius: 10px;
     padding: 7px;
     margin-bottom: 10px;
+    background-image: url("../../assets/images/field.jpg");
+    background-size: cover;
+    color: white;
 }
 
-.division {
+#searchButton {
+    width: 100px;
+    margin: 10px;
+}
+
+.allDivisions {
     height: 150px;
     margin-bottom: 10px;
     text-align: center;
@@ -50,6 +60,11 @@ h3 {
 #gifs {
     padding-top: 10px;
     text-align: center;
+}
+
+#result {
+    background-color: #634747;
+    border-radius: 10px;
 }
 
 .gif {

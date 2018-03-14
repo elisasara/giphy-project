@@ -13,4 +13,4 @@
 * When you click on a team's button that team's gifs, information, and news will appear.
 * To play or pause a gif simply click on the image.
 
-![](assets/images/gifWithInfo)
+![](assets/images/gifWithInfo.png)
